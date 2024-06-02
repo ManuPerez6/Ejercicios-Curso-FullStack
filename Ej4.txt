@@ -1,0 +1,35 @@
+sequenceDiagram
+  participant browser
+  participant server
+
+  browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+  activate server
+  note "solicitud HTTP POST"
+  server-->>browser: 302 Location: notes
+  note "Redirección HTTP 302"
+  browser->>server: GET notes
+  desactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+  activate server
+  server-->>browser: the css file
+  desactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+  activate server
+  server-->>browser: the Javascript file
+  deactivate server
+  Note right of browser: The browser starts executing the Javascript code that fetches the JSON from the server
+
+  browser->>server: GET data.json
+  activate server
+  server->>browser: data.json
+  desactivate server
+  note "Obtención de recursos"
+  
+  browser->>server: GET notes
+  activate server
+  server->>browser: Form Data
+  desactivate server
+  note "Obtención de datos del formulario"
+
